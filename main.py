@@ -5,6 +5,7 @@ from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
 from calculate_embodied_carbon import calculate_embodied_carbon  # Import new function
 from embodied_carbon_summary import summarize_embodied_carbon  # Import new function
+from embodied_carbon_by_component import summarize_embodied_carbon_by_component  # Import new function
 
 # Load a local embedding model (Free & Open Source)
 embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
@@ -71,6 +72,9 @@ def match_materials(database_file, material_takeoff_file, output_file):
 
     # Call the summary function after calculating embodied carbon
     summarize_embodied_carbon(output_file, database_file)
+
+    # Call the component summary function after calculating embodied carbon
+    summarize_embodied_carbon_by_component(output_file)
 
 database_file = "C:/carbon_calculator/testing_material/database.xlsx"
 material_takeoff_file = "C:/carbon_calculator/testing_material/material_takeoff.csv"
