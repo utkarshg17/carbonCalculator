@@ -3,6 +3,8 @@ import numpy as np
 import time
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
+from calculate_embodied_carbon import calculate_embodied_carbon  # Import new function
+from embodied_carbon_summary import summarize_embodied_carbon  # Import new function
 
 # Load a local embedding model (Free & Open Source)
 embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
@@ -63,8 +65,13 @@ def match_materials(database_file, material_takeoff_file, output_file):
     print("\n💾 Saving results to Excel...")
     df_takeoff.to_excel(output_file, sheet_name="Matched Takeoff", index=False)
     print(f"✅ Matching complete! Results saved in 📂 {output_file}")
+    
+    # Call the embodied carbon calculation function
+    calculate_embodied_carbon(output_file)
 
-# Example usage:
+    # Call the summary function after calculating embodied carbon
+    summarize_embodied_carbon(output_file, database_file)
+
 database_file = "C:/carbon_calculator/testing_material/database.xlsx"
 material_takeoff_file = "C:/carbon_calculator/testing_material/material_takeoff.csv"
 output_file = "C:/carbon_calculator/testing_material/matched_material_takeoff.xlsx"
