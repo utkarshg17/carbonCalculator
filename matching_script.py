@@ -51,10 +51,11 @@ def match_materials(database_file, material_takeoff_file, output_file):
     print("\n🔄 Finding best matches for each material...")
     best_match_indices = similarity_matrix.argmax(axis=1)
     
-    # Assign Matched Unique ID, Average Embodied Carbon, and Density
+    # Assign Matched Unique ID, Average Embodied Carbon, Density, and DQI
     df_takeoff["Matched Unique ID"] = df_db.iloc[best_match_indices]["Unique ID"].values
     df_takeoff["Average Embodied Carbon"] = df_db.iloc[best_match_indices]["Average Embodied Carbon"].values
     df_takeoff["Density"] = df_db.iloc[best_match_indices]["Density"].values  # Include density from database
+    df_takeoff["DQI"] = df_db.iloc[best_match_indices]["DQI"].values  # Include DQI from database
     
     print("✅ Matching complete!")
 
